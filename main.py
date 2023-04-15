@@ -26,11 +26,14 @@ async def lifespan(app: FastAPI):
     sync_table(Post)
     yield
     
+
 app = FastAPI(lifespan=lifespan)
+
 
 @app.get("/")
 def homepage():
     return {"meaasage": "Rugged man FastAPI featuring clergey man ASTRA DB"}
+
 
 @app.post("/posts")
 def create_post():
@@ -39,10 +42,12 @@ def create_post():
         
     return "Posts created successfully!"
 
+
 @app.get("/posts")
 def get_posts():
     posts = [dict(x) for x in Post.objects.all()]
     return posts
+
 
 @app.put("/posts/{post_id}")
 def update_post(post_id: str, title: str, body: str):
